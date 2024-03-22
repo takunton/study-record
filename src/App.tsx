@@ -23,8 +23,9 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import theme from "./theme/thme";
-import { PrimaryButton } from "./components/atoms/button/PrimaryButton";
+import { PrimaryButton } from "./_components/PrimaryButton";
 import { useState } from "react";
+import { RecordModal } from "./app/carendar/RecordModal";
 
 export const App = () => {
   // モーダルのモード
@@ -81,47 +82,11 @@ export const App = () => {
             },
           ]}
         />
-        <PrimaryButton onClick={() => {}}>テスト</PrimaryButton>
-        <Modal
+        <RecordModal
+          isNew={isNew}
           isOpen={isOpen}
           onClose={onClose}
-          autoFocus={false}
-          motionPreset="slideInTop"
-        >
-          <ModalOverlay />
-          <ModalContent pb={2}>
-            <ModalHeader>{isNew ? "記録（追加）" : "記録（編集）"}</ModalHeader>
-            <ModalBody mx={4}>
-              <Stack spacing={4}>
-                <FormControl>
-                  <FormLabel>日付</FormLabel>
-                  <Input type="date" />
-                </FormControl>
-                <FormControl>
-                  <FormLabel>内容</FormLabel>
-                  <Select placeholder="選択してください">
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
-                  </Select>
-                </FormControl>
-                <FormControl>
-                  <FormLabel>時間</FormLabel>
-                  <Input type="time" />
-                </FormControl>
-              </Stack>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                color="blue"
-                onClick={onClose}
-                _hover={{ cursor: "pointer" }}
-              >
-                閉じる
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+        ></RecordModal>
       </ChakraProvider>
     </>
   );
