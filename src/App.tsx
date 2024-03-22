@@ -4,26 +4,8 @@ import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import { EventClickArg, EventContentArg } from "@fullcalendar/core";
 import listPlugin from "@fullcalendar/list";
 
-import {
-  Button,
-  ChakraProvider,
-  FormControl,
-  FormLabel,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Select,
-  Stack,
-  Wrap,
-  WrapItem,
-  useDisclosure,
-} from "@chakra-ui/react";
-import theme from "./theme/thme";
-import { PrimaryButton } from "./_components/PrimaryButton";
+import { ChakraProvider, useDisclosure } from "@chakra-ui/react";
+import theme from "./theme/theme";
 import { useState } from "react";
 import { RecordModal } from "./app/carendar/RecordModal";
 
@@ -73,12 +55,13 @@ export const App = () => {
           eventClick={eventClick}
           events={[
             {
-              title: "All-day event",
+              title: "3h プログラム",
               start: "2024-03-21",
+              backgroundColor: "red",
             },
             {
-              title: "Timed event",
-              start: "20240321" + "T12:00:00",
+              title: "2h 読書",
+              start: "2024-03-21",
             },
           ]}
         />
