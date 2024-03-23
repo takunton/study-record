@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { PrimaryButton } from "../../_components/PrimaryButton";
 import { useLearningContent } from "../../_hooks/useLearningContent";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Record } from "../../_types/Record";
 
 type Props = {
@@ -36,9 +36,14 @@ export const RecordModal = (props: Props) => {
   const [learningContent, setLearningContent] = useState<string>();
 
   // 時間
-  const [timeNumber, setTimeNumber] = useState<number>();
+  const [time, setTime] = useState<number>();
 
-  console.debug(learningContents);
+  // stateの初期化
+  useEffect(() => {
+    setDate(selectedRecord ? selectedRecord.date : "");
+    setLearningContent(selectedRecord ? selectedRecord.LearningContent.id : "");
+    setTime(selectedRecord ? selectedRecord.time : 0);
+  }, [selectedRecord]);
 
   // 日付テキスト変更
   function onChangeDate(e: ChangeEvent<HTMLInputElement>) {
@@ -54,15 +59,13 @@ export const RecordModal = (props: Props) => {
 
   // 時間テキスト変更
   function onChangeTime(e: ChangeEvent<HTMLInputElement>) {
-    setTimeNumber(e.target.valueAsNumber);
-    console.debug(e.target.value);
+    setTime(e.target.valueAsNumber);
+    console.debug(e.target.valueAsNumber);
   }
 
   // 保存ボタン押下
   const onClickSave = () => {
-    alert(
-      `"保存しました[日付=${date}, 内容=${learningContent}, 時間=${timeNumber}]`
-    );
+    alert(`"保存しました[日付=${date}, 内容=${learningContent}, 時間=${time}]`);
     onClose();
   };
 
@@ -80,18 +83,14 @@ export const RecordModal = (props: Props) => {
           <Stack spacing={4}>
             <FormControl>
               <FormLabel>日付</FormLabel>
-              <Input
-                type="date"
-                onChange={onChangeDate}
-                value={selectedRecord?.date}
-              />
+              <Input type="date" onChange={onChangeDate} value={date} />
             </FormControl>
             <FormControl>
               <FormLabel>内容</FormLabel>
               <Select
                 onChange={onChangeLearningContents}
                 placeholder="選択してください"
-                value={selectedRecord?.LearningContent.id}
+                value={learningContent}
               >
                 {learningContents.map((learningContent) => (
                   <option value={learningContent.id}>
@@ -102,11 +101,7 @@ export const RecordModal = (props: Props) => {
             </FormControl>
             <FormControl>
               <FormLabel>時間</FormLabel>
-              <Input
-                type="number"
-                onChange={onChangeTime}
-                value={selectedRecord?.time}
-              />
+              <Input type="number" onChange={onChangeTime} value={time} />
             </FormControl>
           </Stack>
         </ModalBody>
