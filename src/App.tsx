@@ -1,20 +1,34 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
-import { EventClickArg, EventContentArg } from "@fullcalendar/core";
+import {
+  EventClickArg,
+  EventContentArg,
+  EventSourceInput,
+} from "@fullcalendar/core";
 import listPlugin from "@fullcalendar/list";
 
 import { ChakraProvider, useDisclosure } from "@chakra-ui/react";
 import theme from "./theme/theme";
 import { useState } from "react";
 import { RecordModal } from "./app/carendar/RecordModal";
+import { useRecord } from "./_hooks/useRecord";
 
 export const App = () => {
+  // 記録リスト
+  const { records } = useRecord();
+
   // モーダルのモード
   const [isNew, setIsNew] = useState(false);
 
   // モーダルの状態
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // 記録リストをeventオブジェクトに変換
+  const events: EventSourceInput = records.map((record) => ({
+    title: `${record.time} ${record.LearningContent.contentName}`,
+    start: record.date,
+  }));
 
   // イベントのフォーマット
   const renderEventContent = (eventInfo: EventContentArg) => {
@@ -53,17 +67,7 @@ export const App = () => {
           eventContent={renderEventContent}
           initialView="dayGridMonth"
           eventClick={eventClick}
-          events={[
-            {
-              title: "3h プログラム",
-              start: "2024-03-21",
-              backgroundColor: "red",
-            },
-            {
-              title: "2h 読書",
-              start: "2024-03-21",
-            },
-          ]}
+          events={events}
         />
         <RecordModal
           isNew={isNew}
