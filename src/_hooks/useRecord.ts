@@ -54,7 +54,7 @@ const record_sample: Record[] = [
 ];
 
 export function useRecord() {
-  const records = record_sample;
+  const records = record_sample; // TODO: API呼び出し
 
   return { records };
 }
