@@ -1,11 +1,11 @@
 import { LearningContent } from "../_types/LearningContent";
 
 const content_sample: LearningContent[] = [
-  { id: "1", seq: 101, contentName: "サンプル1" },
-  { id: "2", seq: 102, contentName: "サンプル2" },
-  { id: "3", seq: 103, contentName: "サンプル3" },
-  { id: "4", seq: 104, contentName: "サンプル4" },
-  { id: "5", seq: 105, contentName: "サンプル5" },
+  { id: "LearningContent_1", seq: 101, contentName: "サンプル1" },
+  { id: "LearningContent_2", seq: 102, contentName: "サンプル2" },
+  { id: "LearningContent_3", seq: 103, contentName: "サンプル3" },
+  { id: "LearningContent_4", seq: 104, contentName: "サンプル4" },
+  { id: "LearningContent_5", seq: 105, contentName: "サンプル5" },
 ];
 
 export function useLearningContent() {
