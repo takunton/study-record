@@ -1,4 +1,6 @@
+import axios from "axios";
 import { Record } from "../_types/Record";
+import { useEffect, useState } from "react";
 
 const record_sample: Record[] = [
   {
@@ -54,7 +56,24 @@ const record_sample: Record[] = [
 ];
 
 export function useRecord() {
-  const records = record_sample; // TODO: API呼び出し
+  const [records, setRecords] = useState<Record[]>([]);
+
+  // state初期化
+  useEffect(() => {
+    const getRecords = () => {
+      axios
+        .get<Array<Record>>("http://127.0.0.1:8000/record")
+        .then((res) => {
+          console.debug(res);
+          setRecords(res.data);
+        })
+        .catch((error) => {
+          console.debug("データの取得に失敗しました:", error);
+        });
+    };
+
+    getRecords();
+  }, []);
 
   return { records };
 }

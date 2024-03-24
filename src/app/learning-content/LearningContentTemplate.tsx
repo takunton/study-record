@@ -58,8 +58,8 @@ export const LearningContentTemplate = () => {
 
   return (
     <>
-      <Button onClick={onClickInsert}>新規</Button>
-      <TableContainer>
+      <PrimaryButton onClick={onClickInsert}>新規</PrimaryButton>
+      <TableContainer mt={30}>
         <Table variant="simple">
           <Thead bgColor="black">
             <Tr>
@@ -75,9 +75,11 @@ export const LearningContentTemplate = () => {
                 <Td>{learningContent.seq}</Td>
                 <Td>{learningContent.contentName}</Td>
                 <Td>
-                  <Button onClick={() => onClickUpdate(learningContent.id)}>
+                  <PrimaryButton
+                    onClick={() => onClickUpdate(learningContent.id)}
+                  >
                     編集
-                  </Button>
+                  </PrimaryButton>
                 </Td>
               </Tr>
             ))}
